@@ -24,11 +24,8 @@ npm run start:dev
 ```
 
 ### Issues and posible improvements
-#### Enhanced Testing
-Increase test coverage with more integration and performance tests to ensure the application can handle various scenarios robustly.
+#### Testing
+If it should be a bigger project, I would add unit test and E2E tests. For this project it is not necessary.
 
-#### Advanced Error Handling
-Integrate a more robust error handling mechanism with structured logging and monitoring for production readiness.
-
-#### Scalability & Performance
-Optimize the codebase and architecture for better scalability, especially under high-load conditions.
+#### Split code into multiple modules
+If the project contained more modules, I should split it and create f.e. module for these statistics.
