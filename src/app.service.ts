@@ -11,21 +11,14 @@ export class AppService {
   ) {}
 
   private countData(characters: Character[]) {
-    const genders = { female: 0, male: 0, other: 0, no_gender: 0 };
+    const genders = { female: 0, male: 0, other: 0, noGender: 0 };
     let ageTotal = 0;
     let agesCount = 0;
     let weightTotal = 0;
 
     characters.forEach((character) => {
-      // Could be improved by using ternary operator if like:
-      // ['m', 'male'].includes(character.gender.toLowerCase())
-      // ? gender.male++
-      // : ['f', 'female'].includes(character.gender.toLowerCase())
-      // ? gender.female++
-      // : gender.other++;
-
       if (!character.gender) {
-        genders.no_gender++;
+        genders.noGender++;
       } else if (character.gender === 'male' || character.gender.toLowerCase() === 'm') {
         genders.male++;
       } else if (character.gender === 'female' || character.gender.toLowerCase() === 'f') {
@@ -48,12 +41,13 @@ export class AppService {
       // Adding age of each nemesis (I count all nemeses - alive and not alive)
       ageTotal += character.nemeses.reduce((sum, nemesis) => {
         agesCount++;
-        return nemesis.years ? sum + nemesis.years : 0;
+        return nemesis.years ? sum + nemesis.years : sum;
       }, 0);
       
-      // Weight is sent as a string, so I have to convert it to a number 1817
+      // Weight is sent as a string, so I have to convert it to a number
       const weightNum = Number(character.weight);
       if (weightNum) {
+        // If character doesn't have any weight, it still counts him, so the average is average of every character
         weightTotal += weightNum;
       }
 
@@ -72,32 +66,28 @@ export class AppService {
   }
 
   async getData() {
-    try {
-      const characters: Character[] = await this.db.query.character.findMany({
-        with: {
-          nemeses: {
-            with: {
-              secrets: {
-                columns: { 
-                  nemesisId: false,
-                }
+    const characters: Character[] = await this.db.query.character.findMany({
+      with: {
+        nemeses: {
+          with: {
+            secrets: {
+              columns: { 
+                nemesisId: false,
               }
-            },
-            columns: {
-              characterId: false,
             }
+          },
+          columns: {
+            characterId: false,
           }
         }
-      });
-      
-      const data = this.countData(characters);
+      }
+    });
+    
+    const data = this.countData(characters);
 
-      return {
-        data,
-        characters,
-      };
-    } catch (err) {
-      console.log(err);
-    }
+    return {
+      data,
+      characters,
+    };
   }
 }

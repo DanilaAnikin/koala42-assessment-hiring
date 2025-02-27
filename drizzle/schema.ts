@@ -1,8 +1,5 @@
 import { pgTable, serial, text, numeric, timestamp, integer, boolean, index, foreignKey, bigint, varchar, doublePrecision, bigserial, pgView, pgEnum } from "drizzle-orm/pg-core"
-import { relations, sql } from "drizzle-orm"
-
-export const enumCharacterGender = pgEnum("enum_character_gender", ['male', 'female', 'other'])
-// export const enumCharactersGender = pgEnum("enum_characters_gender", ['male', 'female', 'other'])
+import { relations } from "drizzle-orm"
 
 export const character = pgTable("character", {
 	id: serial().notNull(),

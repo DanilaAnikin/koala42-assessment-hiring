@@ -4,6 +4,7 @@ export interface Character {
     gender: string | null;
     ability: string;
     minimalDistance: string;
+    // Weight is type of number (or float or null), but actually serves as a string (or null)
     weight: string | null;
     born: string;
     inSpaceSince: string | null;
