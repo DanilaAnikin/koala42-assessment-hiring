@@ -4,8 +4,11 @@
 1) In this project I'm using NestJS and DrizzleORM
 2) Drizzle is initialized in /src/drizzle/drizzle.module.ts
 3) Main code, which gets and returns data is located in /src/
+
    i. app.controller.ts - controller with only 1 Get method function
+
    ii. app.module.ts - module, which connects controller and service
+
    ii. app.service.ts - main code, which gets and returns the main data
 
 ### Installation
